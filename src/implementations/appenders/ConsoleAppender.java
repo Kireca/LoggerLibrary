@@ -1,4 +1,4 @@
-package implementations;
+package implementations.appenders;
 
 import enums.ReportLevel;
 import interfaces.Layout;
@@ -11,7 +11,11 @@ public class ConsoleAppender extends BaseAppender {
 
     @Override
     public void append(String time, String message, ReportLevel reportLevel) {
-        String formattedMessage = this.layout.format(time,message,reportLevel);
-        System.out.println(formattedMessage);
+        if (this.canAppend(reportLevel)){
+            String formattedMessage = this.layout.format(time,message,reportLevel);
+            increaseMessageCount();
+            System.out.println(formattedMessage);
+
+        }
     }
 }
